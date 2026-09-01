@@ -66,17 +66,6 @@ pipeline {
                 }
             }
         }
-        stage('Docker Scout Image') {
-            steps {
-                script{
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                       sh 'docker-scout quickview pammi123/zomato:latest'
-                       sh 'docker-scout cves pammi123/zomato:latest'
-                       sh 'docker-scout recommendations pammi123/zomato:latest'
-                   }
-                }
-            }
-        }
         stage ("Deploy to Container") {
             steps {
                 sh 'docker run -d --name zomato -p 3000:3000 pammi123/zomato:latest'
